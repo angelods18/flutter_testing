@@ -5,16 +5,7 @@ class AppInterceptors extends Interceptor {
 
   AppInterceptors(this.dio);
 
-  @override
-  void onRequest(
-      RequestOptions options, RequestInterceptorHandler handler) async {
-    super.onRequest(options, handler);
-  }
 
-  @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) {
-    super.onResponse(response, handler);
-  }
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {

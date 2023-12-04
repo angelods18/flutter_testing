@@ -1,8 +1,5 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_first_app/nav_example.dart';
-import 'package:flutter_first_app/nav_response.dart';
-import 'package:flutter_first_app/route_app.dart';
 import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {

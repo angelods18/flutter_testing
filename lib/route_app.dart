@@ -26,7 +26,7 @@ GoRouter router() {
   return GoRouter(initialLocation: '/login', routes: [
     GoRoute(
       path: '/login',
-      builder: (context, state) => const LoginPage(),
+      builder: (context, state) => const LoginPage_(),
     ),
     GoRoute(
       path: '/catalog',
@@ -51,8 +51,8 @@ class CatalogPage extends StatelessWidget {
   }
 }
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class LoginPage_ extends StatelessWidget {
+  const LoginPage_({super.key});
 
   @override
   Widget build(BuildContext context) {

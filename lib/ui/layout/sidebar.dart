@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class Sidebar extends StatelessWidget {
   @override
@@ -15,9 +16,12 @@ class Sidebar extends StatelessWidget {
                   decoration: BoxDecoration(color: Colors.blueGrey),
                   child: Text("Ciao Angelo"),
                 ),
-                SidebarRoutingItem(text: 'Home', icon: Icons.home_filled),
                 SidebarRoutingItem(
-                    text: 'Profilo', icon: Icons.person_2_rounded),
+                    text: 'Home', icon: Icons.home_filled, path: '/'),
+                SidebarRoutingItem(
+                    text: 'Profilo',
+                    icon: Icons.person_2_rounded,
+                    path: '/posts'),
               ],
             ),
           ),
@@ -28,10 +32,12 @@ class Sidebar extends StatelessWidget {
 }
 
 class SidebarRoutingItem extends StatelessWidget {
-  const SidebarRoutingItem({super.key, required this.text, required this.icon});
+  const SidebarRoutingItem(
+      {super.key, required this.text, required this.icon, required this.path});
 
   final String text;
   final IconData icon;
+  final String path;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +46,15 @@ class SidebarRoutingItem extends StatelessWidget {
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [Text(text), Icon(icon)]),
+          children: [
+            Text(text),
+            IconButton(
+              icon: Icon(icon),
+              onPressed: () {
+                context.go(path);
+              },
+            )
+          ]),
     );
   }
 }

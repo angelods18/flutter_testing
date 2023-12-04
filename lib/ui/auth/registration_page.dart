@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_first_app/ui/auth/login_page.dart';
+import 'package:flutter_first_app/ui/layout/back_button.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
 class RegistrationPage extends StatelessWidget {
@@ -18,17 +18,11 @@ class Registration extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: BackButton(
-          color: Colors.white,
-          onPressed: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const LoginPage()));
-          },
-        ),
-        title: Center(child: Text("Registration page")),
-      ),
+          title: Text('Registrati!'),
+          centerTitle: true,
+          leading: BackButtonHome()),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(children: [RegistrationForm()]),
       ),

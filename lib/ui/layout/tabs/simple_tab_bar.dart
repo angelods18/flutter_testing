@@ -23,14 +23,10 @@ class SimpleTabBar extends StatelessWidget implements PreferredSizeWidget {
           Tab(
               icon: selectedTab == 1
                   ? Icon(
-                      Icons.search_rounded,
+                      Icons.note_rounded,
                       color: Colors.greenAccent,
                     )
-                  : Icon(Icons.search_outlined)),
-          Tab(
-              icon: selectedTab == 2
-                  ? Icon(Icons.person_2_rounded, color: Colors.greenAccent)
-                  : Icon(Icons.person_2_outlined))
+                  : Icon(Icons.note_outlined)),
         ]);
   }
 

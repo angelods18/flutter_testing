@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_first_app/ui/auth/registration_page.dart';
-import 'package:flutter_first_app/ui/layout/sidebar.dart';
+import 'package:flutter_first_app/ui/commons/rounded_image.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -20,32 +20,15 @@ class LoginDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Center(child: Text("Login page")),
-      ),
-      drawer: Sidebar(),
+      // appBar: AppBar(
+      //   title: Center(child: Text("Login page")),
+      // ),
+      // drawer: Sidebar(),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 60.0, bottom: 30.0),
-              child: Center(
-                child: Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border:
-                            Border.all(color: Colors.greenAccent, width: 2.0),
-                        image: DecorationImage(
-                            image: AssetImage('assets/asset/images/index.jpg'),
-                            fit: BoxFit.fitWidth))),
-                /*decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(50.0)),*/
-                // child: Image.asset('assets/asset/images/index.jpg')),
-              ),
-            ),
+            RoundedImage(
+                pathToImage: 'assets/asset/images/index.jpg', dimension: 80),
             LoginForm(),
           ],
         ),
@@ -85,7 +68,7 @@ class LoginFormState extends State<LoginForm> {
     return Form(
       key: _loginFormKey,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
         child: Column(
           children: [
             Padding(
@@ -122,17 +105,17 @@ class LoginFormState extends State<LoginForm> {
               ),
             ),
             Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(top: 2, left: 10),
+                      padding: EdgeInsets.only(top: 2, left: 5),
                       child: Text('password dimenticata?',
                           style: TextStyle(color: Colors.blueGrey)),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: 2, right: 10),
+                      padding: EdgeInsets.only(top: 2, right: 5),
                       child: Text(
                         'Registrati!',
                         style: TextStyle(
@@ -155,8 +138,8 @@ class LoginFormState extends State<LoginForm> {
                     if (!_loginFormKey.currentState!.validate()) {}
                     print(
                         "${loginController[0].text} ${loginController[1].text}");
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const RegistrationPage()));
+                    // context.go('/registration');
+                    context.pushReplacement('/registration');
                   },
                   child: Text('Login'),
                 ),
