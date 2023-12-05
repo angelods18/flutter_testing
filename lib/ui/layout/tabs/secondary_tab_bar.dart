@@ -6,29 +6,41 @@ class SecondaryTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Container(
         decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.tertiary.withOpacity(0.7),
           borderRadius: BorderRadius.all(
             Radius.circular(30.0),
           ),
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Tab(
-              text: "info",
+              iconMargin: EdgeInsets.zero,
               icon: IconButton(
                 onPressed: () {},
-                icon: Icon(Icons.info_outline),
+                icon: Icon(
+                  Icons.info_outline,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
               ),
+              child: Text('info',
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary)),
             ),
             Tab(
-              text: "community",
+              iconMargin: EdgeInsets.zero,
               icon: IconButton(
                 onPressed: () {},
-                icon: Icon(Icons.people_alt_sharp),
+                icon: Icon(Icons.people_alt_sharp,
+                    color: Theme.of(context).colorScheme.onPrimary),
               ),
+              child: Text('community',
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary)),
             ),
           ],
         ),

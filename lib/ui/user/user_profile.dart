@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_first_app/ui/commons/rounded_image.dart';
 import 'package:flutter_first_app/ui/layout/tabs/secondary_tab_bar.dart';
+import 'package:flutter_first_app/ui/user/user_header.dart';
+import 'package:flutter_first_app/ui/user/user_profile_body.dart';
 
 class UserProfile extends StatelessWidget {
   const UserProfile({super.key});
@@ -17,76 +18,19 @@ class UserProfile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Expanded(
-            flex: 4,
+            flex: 3,
             child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                padding: const EdgeInsets.only(top: 5.0),
                 child: ProfileHeader()),
           ),
           Expanded(
-            flex: 4,
-            child: Text('profile content'),
+            flex: 5,
+            child: UserProfileBody(userId: 1),
           ),
-          Expanded(flex: 2, child: SecondaryTabBar())
-        ],
-      ),
-    );
-  }
-}
-
-// header
-class ProfileHeader extends StatelessWidget {
-  const ProfileHeader({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 25.0, bottom: 10.0),
-          child: RoundedImage(
-              pathToImage: 'assets/asset/images/index.jpg', dimension: 80),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-          child: Text('Angelo De Santis'),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ProfileHeaderSocialInfoItem(title: 'Follower', value: 15),
-              ProfileHeaderSocialInfoItem(title: 'Followings', value: 21),
-              ProfileHeaderSocialInfoItem(title: 'Post', value: 3),
-            ],
-          ),
-        )
-      ],
-    );
-  }
-}
-
-// Header row item
-class ProfileHeaderSocialInfoItem extends StatelessWidget {
-  const ProfileHeaderSocialInfoItem(
-      {super.key, required this.title, required this.value});
-
-  final String title;
-  final int value;
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      flex: 3,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            title,
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Text(value.toString())
+          Expanded(flex: 1, child: SecondaryTabBar()),
+          SizedBox(
+            height: 20,
+          )
         ],
       ),
     );
