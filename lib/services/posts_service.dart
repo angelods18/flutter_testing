@@ -15,9 +15,10 @@ class PostService {
   PostService._();
 
   Future<List<Post>> getPosts([String userId = ""]) async {
+    String appendString = userId == "" ? "" : "?userId=$userId";
     Response<List<dynamic>> response = await HttpClient()
         .httpClient
-        .get<List<dynamic>>('${url}posts?userId=$userId');
+        .get<List<dynamic>>('${url}posts$appendString');
 
     if (response.statusCode == 200) {
       final List<dynamic> body = response.data!;

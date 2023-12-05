@@ -7,7 +7,7 @@ class ProviderStateApp extends StatelessWidget {
   const ProviderStateApp({super.key});
 
   @override
-  Widget build(BuildContext) {
+  Widget build(BuildContext context) {
     return ChangeNotifierProvider(
         // segnalo al sistema qual è lo stato di cui mettersi in ascolto (per tutti i widget figli)
         create: (context) => ItemModel(),
