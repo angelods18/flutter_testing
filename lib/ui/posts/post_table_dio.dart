@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_first_app/model/post.dart';
 import 'package:flutter_first_app/services/posts_service.dart';
+import 'package:flutter_first_app/ui/commons/no_data_found.dart';
 
 class PostTableDio extends StatefulWidget {
   const PostTableDio({super.key});
@@ -28,12 +29,12 @@ class PostTableState extends State<PostTableDio> {
               future: futurePosts,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
+                  return Center(child: const CircularProgressIndicator());
                 } else if (snapshot.hasData) {
                   final todos = snapshot.data!;
                   return PostTableContainer(results: todos);
                 } else {
-                  return NoPostFoundWidget();
+                  return NoDataFoundWidget();
                 }
               }),
         ),
@@ -48,8 +49,14 @@ class PostTableContainer extends StatelessWidget {
   final List<Post> results;
   DataRow _getDataRow(index, Post data) {
     return DataRow(cells: [
-      DataCell(Text(data.userId.toString())),
-      DataCell(Text(data.title))
+      DataCell(Padding(
+        padding: const EdgeInsets.only(left: 5.0, top: 10.0),
+        child: Text(data.userId.toString()),
+      )),
+      DataCell(Padding(
+        padding: const EdgeInsets.only(left: 10.0, top: 10.0),
+        child: Text(data.title),
+      ))
     ]);
   }
 
@@ -60,35 +67,30 @@ class PostTableContainer extends StatelessWidget {
       child: DataTable(
           headingRowColor:
               MaterialStateColor.resolveWith((states) => Colors.blue[200]!),
+          dataRowMinHeight: 60,
+          dataRowMaxHeight: 80,
           columnSpacing: 20,
           columns: [
-            DataColumn(label: Text('userId')),
-            DataColumn(label: Text('title'))
+            DataColumn(
+                label: Expanded(
+              child: Center(
+                  child: Text(
+                'userId',
+                textAlign: TextAlign.center,
+              )),
+            )),
+            DataColumn(
+                label: Expanded(
+              child: Center(
+                child: Text(
+                  'title',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ))
           ],
           rows: List.generate(
               results.length, (index) => _getDataRow(index, results[index]))),
-    );
-  }
-}
-
-class NoPostFoundWidget extends StatelessWidget {
-  const NoPostFoundWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: const <Widget>[
-        SizedBox(
-          // ignore: sort_child_properties_last
-          child: CircularProgressIndicator(),
-          width: 30,
-          height: 30,
-        ),
-        Padding(
-          padding: EdgeInsets.all(40),
-          child: Text('No Data Found...'),
-        ),
-      ],
     );
   }
 }

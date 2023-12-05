@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       routerConfig: router(),
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreenAccent),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
           useMaterial3: true),
     );
   }

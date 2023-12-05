@@ -19,7 +19,6 @@ class LoginDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       // appBar: AppBar(
       //   title: Center(child: Text("Login page")),
       // ),
@@ -27,6 +26,9 @@ class LoginDemo extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(
+              height: 150,
+            ),
             RoundedImage(
                 pathToImage: 'assets/asset/images/index.jpg', dimension: 80),
             LoginForm(),
@@ -68,11 +70,11 @@ class LoginFormState extends State<LoginForm> {
     return Form(
       key: _loginFormKey,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5.0),
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: TextFormField(
                 controller: loginController[0],
                 validator: MultiValidator([

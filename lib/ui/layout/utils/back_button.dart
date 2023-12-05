@@ -10,7 +10,7 @@ class BackButtonHome extends StatelessWidget {
       onPressed: () {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) {
-            return const Homepage();
+            return const Homepage(defaultTab: 0);
           },
         ));
       },

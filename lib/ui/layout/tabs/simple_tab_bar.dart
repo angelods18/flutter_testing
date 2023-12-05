@@ -14,6 +14,7 @@ class SimpleTabBar extends StatelessWidget implements PreferredSizeWidget {
         indicatorColor: Colors.greenAccent,
         tabs: [
           Tab(
+              text: 'home',
               icon: selectedTab == 0
                   ? Icon(
                       Icons.home_filled,
@@ -21,7 +22,16 @@ class SimpleTabBar extends StatelessWidget implements PreferredSizeWidget {
                     )
                   : Icon(Icons.home_outlined)),
           Tab(
+              text: 'community',
               icon: selectedTab == 1
+                  ? Icon(
+                      Icons.people,
+                      color: Colors.greenAccent,
+                    )
+                  : Icon(Icons.people_alt_outlined)),
+          Tab(
+              text: 'feed',
+              icon: selectedTab == 2
                   ? Icon(
                       Icons.note_rounded,
                       color: Colors.greenAccent,

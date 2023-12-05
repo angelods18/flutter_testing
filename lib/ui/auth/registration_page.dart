@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_first_app/ui/layout/back_button.dart';
+import 'package:flutter_first_app/ui/layout/utils/back_button.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
 class RegistrationPage extends StatelessWidget {
