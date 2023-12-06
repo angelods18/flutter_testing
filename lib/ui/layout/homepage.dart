@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_first_app/ui/auth/login_page.dart';
 import 'package:flutter_first_app/ui/layout/sidebar.dart';
 import 'package:flutter_first_app/ui/layout/tabs/simple_tab_bar.dart';
-import 'package:flutter_first_app/ui/lines-up/line_up.dart';
+import 'package:flutter_first_app/ui/lines-up/edit_line_up.dart';
 import 'package:flutter_first_app/ui/posts/post_table_dio.dart';
 import 'package:flutter_first_app/ui/user/user_table.dart';
 import 'package:go_router/go_router.dart';
@@ -19,9 +19,9 @@ class HomepageState extends State<Homepage>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
   int selectedTab = 0;
-  final List<String> tabTitleList = ['Login', 'Community', "Line up", "Feed"];
+  final List<String> tabTitleList = ['Login', 'Community', "Line up"];
   String currentTitle = '';
-  int tabLength = 4;
+  int tabLength = 3;
 
   @override
   void initState() {
@@ -65,7 +65,7 @@ class HomepageState extends State<Homepage>
               tabController: tabController, selectedTab: selectedTab),
           body: TabBarView(
               controller: tabController,
-              children: [LoginPage(), UserTable(), LineUp(), PostTableDio()]),
+              children: [LoginPage(), UserTable(), EditLineUpPage()]),
         ));
   }
 }

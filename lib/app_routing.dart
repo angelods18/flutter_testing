@@ -8,7 +8,7 @@ final _router = GoRouter(initialLocation: '/', routes: [
   GoRoute(
       name: 'home',
       path: '/',
-      builder: (context, state) => const Homepage(defaultTab: 0),
+      builder: (context, state) => const Homepage(defaultTab: 2),
       routes: [
         GoRoute(
             name: 'profile',
