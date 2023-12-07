@@ -18,13 +18,29 @@ class Titolare {
   }
 }
 
+class Giocatore {
+  String _ruolo = "";
+  String _nome = "";
+
+  String get ruolo => _ruolo;
+  String get nome => _nome;
+
+  Giocatore(String ruolo, String nome) {
+    _ruolo = ruolo;
+    _nome = nome;
+  }
+}
+
 class LineUpModel extends ChangeNotifier {
   late String _modulo = moduleList.first;
-  final List<Titolare> _titolari = [];
-  final List<String> _panchinari = [];
+  List<Titolare> _titolari = [];
+  List<String> _panchinari = [];
 
   String get modulo => _modulo;
-  List<Titolare> get titolari => _titolari;
+  List<Titolare> get titolari =>
+      _titolari.length == 11 ? _titolari : buildTitolari();
+  int get titolariSize => _titolari.length;
+
   List<String> get panchinari => _panchinari;
   List<String> get moduliList => moduleList;
 
@@ -52,7 +68,7 @@ class LineUpModel extends ChangeNotifier {
     // if (titolari.isEmpty || titolari.length < 2) {
     //   return difList;
     // }
-    for (int i = 2; i < 2 + sizeDef; i++) {
+    for (int i = 1; i < 1 + sizeDef; i++) {
       difList
           .add(titolari.length >= i ? titolari[i] : Titolare("DEF", null, i));
     }
@@ -64,7 +80,7 @@ class LineUpModel extends ChangeNotifier {
     // if (titolari.isEmpty || titolari.length < 2 + sizeDef) {
     //   return cenList;
     // }
-    for (int i = 2 + sizeDef; i < 2 + sizeDef + sizeCen; i++) {
+    for (int i = 1 + sizeDef; i < 1 + sizeDef + sizeCen; i++) {
       cenList
           .add(titolari.length >= i ? titolari[i] : Titolare("CEN", null, i));
     }
@@ -76,8 +92,8 @@ class LineUpModel extends ChangeNotifier {
     // if (titolari.isEmpty || titolari.length < 2 + sizeDef + sizeCen) {
     //   return attList;
     // }
-    for (int i = 2 + sizeDef + sizeCen;
-        i < 2 + sizeDef + sizeCen + sizeAtt;
+    for (int i = 1 + sizeDef + sizeCen;
+        i < 1 + sizeDef + sizeCen + sizeAtt;
         i++) {
       attList
           .add(titolari.length >= i ? titolari[i] : Titolare("ATT", null, i));
@@ -91,15 +107,36 @@ class LineUpModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void initTitolari() {
+    _titolari = buildTitolari();
+  }
+
   void setModulo(String mod) {
     print("chiamato set modulo con $mod");
     _modulo = mod;
+    _titolari = buildTitolari();
     notifyListeners();
   }
 
   void setTitolareToIndex(String ruolo, String nome, int index) {
-    int indiceTit = 0;
-    _titolari.insert(indiceTit, Titolare(ruolo, nome, index));
+    print("$nome è il $ruolo al posto $index");
+    int indiceTit = index;
+    switch (ruolo) {
+      case "POR":
+        indiceTit = 0;
+        break;
+      case "DEF":
+        indiceTit = 1 + index;
+      case "CEN":
+        indiceTit = 1 + sizeDef + index;
+      case "ATT":
+        indiceTit = 1 + sizeDef + sizeCen + index;
+      default:
+        indiceTit = 0;
+        break;
+    }
+
+    _titolari[indiceTit] = Titolare(ruolo, nome, index);
 
     notifyListeners();
   }
@@ -120,5 +157,20 @@ class LineUpModel extends ChangeNotifier {
     _panchinari.remove(giocatore);
 
     notifyListeners();
+  }
+
+  List<Titolare> buildTitolari() {
+    List<Titolare> titolari = [];
+    titolari.add(Titolare("POR", null, 0));
+    for (int i = 0; i < sizeDef; i++) {
+      titolari.add(Titolare("DEF", null, i));
+    }
+    for (int i = 0; i < sizeCen; i++) {
+      titolari.add(Titolare("CEN", null, i));
+    }
+    for (int i = 0; i < sizeAtt; i++) {
+      titolari.add(Titolare("ATT", null, i));
+    }
+    return titolari;
   }
 }

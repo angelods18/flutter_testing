@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class RosaDialog extends StatelessWidget {
-  const RosaDialog({super.key, required this.rosa});
+  const RosaDialog({super.key, required this.rosa, required this.ruolo});
 
   final List<String> rosa;
+  final String ruolo;
 
   @override
   Widget build(BuildContext context) {

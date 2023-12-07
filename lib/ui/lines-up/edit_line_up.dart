@@ -4,24 +4,30 @@ import 'package:flutter_first_app/ui/lines-up/rosa_dialog.dart';
 import 'package:flutter_first_app/ui/lines-up/select_module.dart';
 import 'package:provider/provider.dart';
 
-const List<String> rosa = [
-  'POR1',
-  'POR2',
-  'POR3',
-  'DIF1',
-  'DIF2',
-  'DIF3',
-  'DIF4',
-  'DIF5',
-  'CEN1',
-  'CEN2',
-  'CEN3',
-  'CEN4',
-  'CEN5',
-  'ATT1',
-  'ATT2',
-  'ATT3',
-  'ATT4',
+List<Giocatore> rosa = [
+  Giocatore("POR", 'POR1'),
+  Giocatore("POR", 'POR2'),
+  Giocatore("POR", 'POR3'),
+  Giocatore("DEF", 'DEF1'),
+  Giocatore("DEF", 'DEF2'),
+  Giocatore("DEF", 'DEF3'),
+  Giocatore("DEF", 'DEF4'),
+  Giocatore("DEF", 'DEF5'),
+  Giocatore("DEF", 'DEF6'),
+  Giocatore("CEN", 'CEN1'),
+  Giocatore("CEN", 'CEN2'),
+  Giocatore("CEN", 'CEN3'),
+  Giocatore("CEN", 'CEN4'),
+  Giocatore("CEN", 'CEN5'),
+  Giocatore("CEN", 'CEN6'),
+  Giocatore("CEN", 'CEN7'),
+  Giocatore("CEN", 'CEN8'),
+  Giocatore("ATT", 'ATT1'),
+  Giocatore("ATT", 'ATT2'),
+  Giocatore("ATT", 'ATT3'),
+  Giocatore("ATT", 'ATT4'),
+  Giocatore("ATT", 'ATT5'),
+  Giocatore("ATT", 'ATT6'),
 ];
 
 class EditLineUpPage extends StatelessWidget {
@@ -54,10 +60,11 @@ class EditLineUpPage extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class LineUpWidget extends StatefulWidget {
   LineUpWidget({super.key, required this.lineup});
 
-  final LineUpModel lineup;
+  LineUpModel lineup;
 
   @override
   State<LineUpWidget> createState() => _LineUpWidgetState();
@@ -66,6 +73,8 @@ class LineUpWidget extends StatefulWidget {
 class _LineUpWidgetState extends State<LineUpWidget> {
   @override
   Widget build(BuildContext context) {
+    print(
+        "rebuildato lineup con titolari n° ${widget.lineup.titolariSize.toString()}");
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -76,21 +85,24 @@ class _LineUpWidgetState extends State<LineUpWidget> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              GiocatoreWidget(giocatore: widget.lineup.portiere),
+              GiocatoreWidget(giocatore: widget.lineup.portiere, ruolo: "POR"),
             ],
           ),
           SizedBox(height: 60),
           Wrap(
             alignment: WrapAlignment.spaceBetween,
             children: widget.lineup.difensori
-                .map((e) => GiocatoreWidget(giocatore: e))
+                .map((e) => GiocatoreWidget(giocatore: e, ruolo: "DEF"))
                 .toList(),
           ),
           SizedBox(height: 80),
           Wrap(
             alignment: WrapAlignment.spaceBetween,
             children: widget.lineup.centrocampisti
-                .map((e) => GiocatoreWidget(giocatore: e))
+                .map((e) => GiocatoreWidget(
+                      giocatore: e,
+                      ruolo: "CEN",
+                    ))
                 .toList(),
           ),
           SizedBox(height: 80),
@@ -99,6 +111,7 @@ class _LineUpWidgetState extends State<LineUpWidget> {
             children: widget.lineup.attaccanti
                 .map((e) => GiocatoreWidget(
                       giocatore: e,
+                      ruolo: "ATT",
                     ))
                 .toList(),
           ),
@@ -125,26 +138,45 @@ class _LineUpWidgetState extends State<LineUpWidget> {
 // }
 
 class GiocatoreWidget extends StatefulWidget {
-  GiocatoreWidget({super.key, required this.giocatore});
+  GiocatoreWidget({super.key, required this.giocatore, this.ruolo});
 
   final Titolare? giocatore;
+  final String? ruolo;
+
   @override
   State<GiocatoreWidget> createState() => _GiocatoreWidgetState();
 }
 
 class _GiocatoreWidgetState extends State<GiocatoreWidget> {
+  late LineUpModel lineup;
+
+  @override
+  void initState() {
+    lineup = context.read<LineUpModel>();
+    if (lineup.titolariSize != 11) {
+      lineup.initTitolari();
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var lineup = context.read<LineUpModel>();
+    List<String> giocPerRuolo = rosa
+        .where((element) => element.ruolo == widget.ruolo)
+        .map((e) => e.nome)
+        .toList();
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: widget.giocatore!.nome == null
           ? IconButton(
               onPressed: () {
                 showDialog(
-                        context: context,
-                        builder: (context) => RosaDialog(rosa: rosa))
-                    .then((response) {
+                    context: context,
+                    builder: (context) => RosaDialog(
+                        rosa: giocPerRuolo,
+                        ruolo: widget.ruolo!)).then((response) {
                   print("response: $response");
                   if (response != null) {
                     lineup.setTitolareToIndex(widget.giocatore!.ruolo, response,
